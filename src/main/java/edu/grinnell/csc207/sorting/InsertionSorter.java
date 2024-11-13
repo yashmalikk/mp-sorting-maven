@@ -10,11 +10,10 @@ import java.util.Comparator;
  *
  * @author Samuel A. Rebelsky
  */
-
 public class InsertionSorter<T> implements Sorter<T> {
   // +--------+------------------------------------------------------
   // | Fields |
-  // +--------+
+  // +--------
 
   /**
    * The way in which elements are ordered.
@@ -23,7 +22,7 @@ public class InsertionSorter<T> implements Sorter<T> {
 
   // +--------------+------------------------------------------------
   // | Constructors |
-  // +--------------+
+  // +--------------
 
   /**
    * Create a sorter using a particular comparator.
@@ -38,7 +37,7 @@ public class InsertionSorter<T> implements Sorter<T> {
 
   // +---------+-----------------------------------------------------
   // | Methods |
-  // +---------+
+  // +---------
 
   /**
    * Sort an array in place using insertion sort.
@@ -55,6 +54,19 @@ public class InsertionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    // Loop through each element starting from index 1.
+    for (int i = 1; i < values.length; i++) {
+      T current = values[i]; // Store the element to be inserted.
+      int j = i - 1; // Start comparing with the element just before it.
+
+      // Shift elements of values[0..i-1] that are greater than current.
+      while (j >= 0 && order.compare(values[j], current) > 0) {
+        values[j + 1] = values[j]; // Shift the larger element to the right.
+        j--; // Move the index leftward.
+      }
+
+      // Insert the current element into its correct position.
+      values[j + 1] = current;
+    } // for-loop over the whole array.
   } // sort(T[])
 } // class InsertionSorter
