@@ -10,7 +10,6 @@ import java.util.Comparator;
  *
  * @author Samuel A. Rebelsky
  */
-
 public class SelectionSorter<T> implements Sorter<T> {
   // +--------+------------------------------------------------------
   // | Fields |
@@ -55,6 +54,23 @@ public class SelectionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    int n = values.length;
+    // Loop over each position in the array.
+    for (int i = 0; i < n - 1; i++) {
+      // Assume the minimum element is at the current position.
+      int minIndex = i;
+
+      for (int j = i + 1; j < n; j++) {
+        if (order.compare(values[j], values[minIndex]) < 0) {
+          minIndex = j;
+        } // Find the index of the minimum element in the remaining unsorted part.
+      } // for loop.
+
+      if (minIndex != i) {
+        T temp = values[i];
+        values[i] = values[minIndex];
+        values[minIndex] = temp;
+      } // Swap the found minimum element with the first unsorted element.
+    } // for - loop
   } // sort(T[])
 } // class SelectionSorter

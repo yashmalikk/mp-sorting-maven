@@ -56,17 +56,33 @@ public class InsertionSorter<T> implements Sorter<T> {
   public void sort(T[] values) {
     // Loop through each element starting from index 1.
     for (int i = 1; i < values.length; i++) {
-      T current = values[i]; // Store the element to be inserted.
-      int j = i - 1; // Start comparing with the element just before it.
-
-      // Shift elements of values[0..i-1] that are greater than current.
-      while (j >= 0 && order.compare(values[j], current) > 0) {
-        values[j + 1] = values[j]; // Shift the larger element to the right.
-        j--; // Move the index leftward.
-      }
-
-      // Insert the current element into its correct position.
-      values[j + 1] = current;
-    } // for-loop over the whole array.
+      // Insert values[i] into its correct position within the sorted portion of the array.
+      insert(values, i);
+    } // for-loop
   } // sort(T[])
+
+  /**
+   * Insert an element into its correct position within a sorted portion of the array.
+   *
+   * @param values
+   *   The array containing the element to insert.
+   * @param pos
+   *   The position of the element to insert (values[pos]).
+   *
+   * @post
+   *   values[0..pos] is sorted.
+   */
+  private void insert(T[] values, int pos) {
+    T current = values[pos]; // Store the element to be inserted.
+    int j = pos - 1; // Start comparing with the element just before it.
+
+    // Shift elements of values[0..pos-1] that are greater than current.
+    while (j >= 0 && order.compare(values[j], current) > 0) {
+      values[j + 1] = values[j]; // Shift the larger element to the right.
+      j--; // Move the index leftward.
+    } //while-loop
+
+    // Insert the current element into its correct position.
+    values[j + 1] = current;
+  } // insert(T[], int)
 } // class InsertionSorter
